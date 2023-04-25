@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from FuerzaBruta import accionesFB
 from ProgramacionVoraz import accionesVoraz
@@ -5,15 +6,6 @@ from ProgramacionDinamica import accionesPD
 from ProgramacionDinamicaPaquetes import accionesPDP
 
 loading = False
-
-# ALGORITMOS
-
-
-
-
-
-# PROGRAMACIÓN VORAZ ---------------------------
-
 
 def main():
     global loading
@@ -56,6 +48,14 @@ def main():
         # print("acciones por paquete : ", acciones_paquete)
         print('')
 
+        st.write(f"Número de acciones: {max_acciones}")
+        st.write(f"Precio mínimo por accion: {min_precio_acciones}")
+        st.write(f"Número de compradores: {compradores}")
+        st.write(f"Ofertas de cada comprador: {ofertas}")
+
+        if(es_psub):
+            st.write(f"Acciones por paquete: {acciones_paquete}")
+
         tipo_algoritmo = st.radio("Elige un enfoque para resolver el problema",
                          ('Fuerza Bruta', 'Programación Voraz', 'Programación Dinámica', 'Programación Dinámica con Paquetes'))
 
@@ -81,8 +81,31 @@ def main():
             st.write(f"La máxima ganancia posible es: {resultado}")
             st.write(f"Acciones por comprador: {acciones_vendidas}")
 
+            # Lógica para crear archivo de salida
+            path = "./salidas/"
+            filename = "resultado.txt"
+            contador = 1
 
-        # Llamar a la función 
+            # Verifica que no exista un archivo de salida con el mismo nombre
+            while os.path.exists(path + filename):
+                filename = "resultado_" + str(contador) + ".txt"
+                contador += 1
+
+            # Crea el archivo de salida con los resultados
+            with open(path + filename, "w") as f:
+                f.write(f"{resultado}\n")
+                for accion in acciones_vendidas:
+                    f.write(f"{accion}\n")
+
+            with open(filename, 'rb') as f:
+                file_contents = f.read()
+
+            # # Crear un botón de descarga
+            # download_button = st.download_button(
+            #     label="Descargar solución",
+            #     data=file_contents,
+            #     file_name=filename
+            # )
         
 
         if(loading):
