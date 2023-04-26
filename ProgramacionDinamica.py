@@ -1,4 +1,4 @@
-def accionesPD(num_acciones, precio_minimo, num_compradores, compradores):
+def accionesPD1(num_acciones, precio_minimo, num_compradores, compradores):
 
     #Verificar que la entrada tenga al gobierno al final, sino, se añade
     if(num_compradores != len(compradores)):

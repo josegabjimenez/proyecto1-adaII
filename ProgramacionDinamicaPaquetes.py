@@ -1,5 +1,5 @@
 # PROGRAMACIÓN DINÁMICA CON PAQUETES ---------------------------
-def accionesPDP(num_acciones, precio_minimo, num_compradores, compradores, acciones_paquete):
+def accionesPD2(num_acciones, precio_minimo, num_compradores, compradores, acciones_paquete):
     #Verificar que la entrada tenga al gobierno al final, sino, se añade
     if(num_compradores != len(compradores)):
         compradores.append([precio_minimo, num_acciones, 0])

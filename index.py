@@ -1,11 +1,9 @@
 import os
 import streamlit as st
 from FuerzaBruta import accionesFB
-from ProgramacionVoraz import accionesVoraz
-from ProgramacionDinamica import accionesPD
-from ProgramacionDinamicaPaquetes import accionesPDP
-
-loading = False
+from ProgramacionVoraz import accionesV
+from ProgramacionDinamica import accionesPD1
+from ProgramacionDinamicaPaquetes import accionesPD2
 
 def main():
     global loading
@@ -66,16 +64,16 @@ def main():
                 resultado, acciones_vendidas = accionesFB(max_acciones, min_precio_acciones, compradores, ofertas)
 
             if (tipo_algoritmo == "Programación Voraz"):
-                resultado, acciones_vendidas = accionesVoraz(max_acciones, min_precio_acciones, compradores, ofertas)
+                resultado, acciones_vendidas = accionesV(max_acciones, min_precio_acciones, compradores, ofertas)
 
             if (tipo_algoritmo == "Programación Dinámica"):
-                resultado, acciones_vendidas = accionesPD(max_acciones, min_precio_acciones, compradores, ofertas)
+                resultado, acciones_vendidas = accionesPD1(max_acciones, min_precio_acciones, compradores, ofertas)
             
             if (tipo_algoritmo == "Programación Dinámica con Paquetes"):
                 if(not es_psub):
                     st.write("Este archivo no indica el número de acciones por paquete")
                 else:
-                    resultado, acciones_vendidas = accionesPDP(max_acciones, min_precio_acciones, compradores, ofertas, acciones_paquete)
+                    resultado, acciones_vendidas = accionesPD2(max_acciones, min_precio_acciones, compradores, ofertas, acciones_paquete)
             
             # Mostrar los resultados
             st.write(f"La máxima ganancia posible es: {resultado}")
@@ -108,12 +106,8 @@ def main():
             # )
         
 
-        if(loading):
-            st.write("Cargando...")
-
-  
-        # for i, a in enumerate(acciones_vendidas):
-        #     st.write(f"El comprador {i+1} compró {a} acciones")
+        # if(loading):
+        #     st.write("Cargando...")
 
 if __name__ == "__main__":
     main()

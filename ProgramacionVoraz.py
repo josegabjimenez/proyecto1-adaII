@@ -1,4 +1,4 @@
-def accionesVoraz(num_acciones, precio_minimo, num_compradores, compradores):
+def accionesV(num_acciones, precio_minimo, num_compradores, compradores):
   #Verificar que la entrada tenga al gobierno al final, sino, se añade
   if(num_compradores != len(compradores)):
     compradores.append([precio_minimo, num_acciones, 0])
