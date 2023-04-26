@@ -3,10 +3,10 @@ def accionesPD1(num_acciones, precio_minimo, num_compradores, compradores):
     #Verificar que la entrada tenga al gobierno al final, sino, se añade
     if(num_compradores != len(compradores)):
         compradores.append([precio_minimo, num_acciones, 0])
+    # print("DINAMICA COMPRADORES:" ,len(compradores))
 
     # Inicializar una matriz para almacenar la máxima ganancia para cada comprador y número de acciones vendidas
     matriz_ganancias = [[0] * (num_acciones + 1) for _ in range(num_compradores + 1)]
-    print("DINAMICA COMPRADORES:" ,len(compradores))
     # Rellenar la primera columna de la matriz con la ganancia que se puede obtener vendiendo 0 acciones
     for i in range(num_compradores + 1):
         matriz_ganancias[i][0] = 0

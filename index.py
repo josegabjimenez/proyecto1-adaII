@@ -6,8 +6,6 @@ from ProgramacionDinamica import accionesPD1
 from ProgramacionDinamicaPaquetes import accionesPD2
 
 def main():
-    global loading
-    print(loading)
     st.title("Proyecto I. Análisis y Diseño de Algoritmos II")
 
     # Widget para seleccionar el archivo de entrada
@@ -16,7 +14,10 @@ def main():
 
         es_psub = False
         file_extension = input_file.name.split(".")[-1]
+        input_file_name = input_file.name.split(".")[0]
         lines = input_file.readlines()
+
+        # print(file_name)
 
         if(file_extension == "psub"):
             es_psub = True
@@ -39,12 +40,12 @@ def main():
             array_numeros = [int(x) for x in oferta_arr]
             ofertas.append(array_numeros)
 
-        print('max_acciones : ', max_acciones)
-        print('min_acciones : ', min_precio_acciones)
-        print('compradores : ', compradores)
-        print("ofertas : ",ofertas)
-        # print("acciones por paquete : ", acciones_paquete)
-        print('')
+        # print('max_acciones : ', max_acciones)
+        # print('min_acciones : ', min_precio_acciones)
+        # print('compradores : ', compradores)
+        # print("ofertas : ",ofertas)
+        # # print("acciones por paquete : ", acciones_paquete)
+        # print('')
 
         st.write(f"Número de acciones: {max_acciones}")
         st.write(f"Precio mínimo por accion: {min_precio_acciones}")
@@ -61,15 +62,19 @@ def main():
         
         if (generar_solucion):
             if (tipo_algoritmo == "Fuerza Bruta"):
+                file_contents = None
                 resultado, acciones_vendidas = accionesFB(max_acciones, min_precio_acciones, compradores, ofertas)
 
             if (tipo_algoritmo == "Programación Voraz"):
+                file_contents = None
                 resultado, acciones_vendidas = accionesV(max_acciones, min_precio_acciones, compradores, ofertas)
 
             if (tipo_algoritmo == "Programación Dinámica"):
+                file_contents = None
                 resultado, acciones_vendidas = accionesPD1(max_acciones, min_precio_acciones, compradores, ofertas)
             
             if (tipo_algoritmo == "Programación Dinámica con Paquetes"):
+                file_contents = None
                 if(not es_psub):
                     st.write("Este archivo no indica el número de acciones por paquete")
                 else:
@@ -81,7 +86,7 @@ def main():
 
             # Lógica para crear archivo de salida
             path = "./salidas/"
-            filename = "resultado.txt"
+            filename = "resultado"
             contador = 1
 
             # Verifica que no exista un archivo de salida con el mismo nombre
@@ -90,20 +95,21 @@ def main():
                 contador += 1
 
             # Crea el archivo de salida con los resultados
-            with open(path + filename, "w") as f:
+            with open(f"{path}{filename}_{input_file_name}.txt", "w") as f:
                 f.write(f"{resultado}\n")
                 for accion in acciones_vendidas:
                     f.write(f"{accion}\n")
 
-            with open(filename, 'rb') as f:
+            with open(f"{path}{filename}_{input_file_name}.txt", 'rb') as f:
                 file_contents = f.read()
 
             # # Crear un botón de descarga
-            # download_button = st.download_button(
-            #     label="Descargar solución",
-            #     data=file_contents,
-            #     file_name=filename
-            # )
+            if(file_contents):
+                st.download_button(
+                    label="Descargar solución",
+                    data=file_contents,
+                    file_name=f"{filename}_{input_file_name}.txt"
+                )
         
 
         # if(loading):
